@@ -6,10 +6,60 @@ using System.Threading.Tasks;
 
 namespace KeyValueStore
 {
-    class Program
+    struct KeyValue
     {
-        static void Main(string[] args)
+        public readonly string key;
+        public readonly object value;
+
+
+        public KeyValue(string key, object value)
         {
+            this.key = key;
+            this.value = value;
         }
     }
+    
+    class MyDictionary
+
+
+    {
+    KeyValue[] kvs = new KeyValue[16];
+    interface storedValues = 0;
+
+        public object this[string key]
+        {
+            set
+            {
+                bool found = false;
+
+                for (int i = 0; i < storedValues; ++i)
+                {
+                    if (kvs[i].key == key)
+                    {
+                        found = true;
+                    }
+                }
+                if (!found)
+                {
+                    kvs[storedValues++] = new KeyValue(key, value);
+                }
+            }
+
+            get
+            {
+                bool found = false;
+                for (int i = 0; i < storedValues; ++i)
+                {
+                    if (kvs[i].key == searchKey)
+                        return kvs[i].value;
+                }
+
+                throw new KeyNotFoundException($"Didn't find\"{searchKey}\" in MyDictionary");
+            }
+           
+        }
+    }
+
+
+    
 }
